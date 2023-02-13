@@ -28,25 +28,25 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        //Publish Views
-        $this->publishes([
+          //Publish Views
+          $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-notifications'),
-        ], 'views');
+        ], 'tomato-notifications-views');
 
         //Publish Config
         $this->publishes([
             __DIR__.'/../config/tomato-notifications.php' => config_path('tomato-notifications.php'),
-        ], 'config');
+        ], 'tomato-notifications-config');
 
         //Publish Lang
         $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/tomato-notifications'),
-        ], 'lang');
+            __DIR__.'/../resources/lang' => app_path('lang/vendor/tomato-notifications'),
+        ], 'tomato-notifications-lang');
 
         //Publish Migrations
         $this->publishes([
             __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'migrations');
+        ], 'tomato-notifications-migrations');
 
         //Register install command
         $this->commands([
