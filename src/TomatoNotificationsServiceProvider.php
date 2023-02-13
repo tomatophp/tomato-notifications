@@ -28,8 +28,8 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        //Publish Views
-        $this->publishes([
+          //Publish Views
+          $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-notifications'),
         ], 'tomato-notifications-views');
 
