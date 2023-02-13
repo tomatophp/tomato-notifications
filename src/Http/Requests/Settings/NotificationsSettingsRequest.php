@@ -1,6 +1,6 @@
 <?php
 
-namespace TomatoPHP\TomatoNotifications\Http\Requests\Settings;
+namespace Queents\TomatoNotifications\Http\Requests\Settings;
 
 use Illuminate\Foundation\Http\FormRequest;
 

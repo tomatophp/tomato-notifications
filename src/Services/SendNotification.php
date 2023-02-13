@@ -10,6 +10,7 @@ use TomatoPHP\TomatoNotifications\Services\Actions\LoadTemplate;
 use TomatoPHP\TomatoNotifications\Services\Actions\SendToDatabase;
 use TomatoPHP\TomatoNotifications\Services\Actions\SendToJob;
 use TomatoPHP\TomatoNotifications\Services\Concerns\HasCreatedBy;
+use TomatoPHP\TomatoNotifications\Services\Concerns\HasData;
 use TomatoPHP\TomatoNotifications\Services\Concerns\HasFindBody;
 use TomatoPHP\TomatoNotifications\Services\Concerns\HasFindTitle;
 use TomatoPHP\TomatoNotifications\Services\Concerns\HasIcon;
@@ -60,7 +61,7 @@ class SendNotification
     use LoadTemplate;
     use SendToDatabase;
     use SendToJob;
-
+    use HasData;
     /**
      * @param ?array $providers
      * @return static

@@ -14,7 +14,7 @@ composer require tomatophp/tomato-notifications
 
 ## Support
 
-you can join our discord server to get support [TomatoPHP](https://discord.gg/VZc8nBJ3ZU)
+you can join our discord server to get support [TomatoPHP](https://discord.gg/Xqmt35Uh)
 
 ## Docs
 

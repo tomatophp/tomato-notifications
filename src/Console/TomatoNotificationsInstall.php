@@ -43,6 +43,7 @@ class TomatoNotificationsInstall extends Command
     {
         $this->info('🍅 Publish Components Vendor Assets');
         $this->callSilent('optimize:clear');
+        $this->call('vendor:publish', ['--provider' => 'TomatoPHP\TomatoNotifications\TomatoNotificationsServiceProvider']);
         $this->artisanCommand(["migrate"]);
         $this->artisanCommand(["optimize:clear"]);
         $this->info('🍅 Tomato Notifications installed successfully.');

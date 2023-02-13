@@ -2,7 +2,7 @@
 
 namespace TomatoPHP\TomatoNotifications\Services\Actions;
 
-use TomatoPHP\TomatoNotifications\Entities\UserNotification;
+use TomatoPHP\TomatoNotifications\Models\UserNotification;
 
 trait SendToDatabase
 {

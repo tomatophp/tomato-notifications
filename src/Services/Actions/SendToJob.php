@@ -26,7 +26,8 @@ trait SendToJob
                 "privacy" => $this->privacy,
                 "provider" => $provider,
                 "model" => $this->model,
-                "model_id" => $this->user->id
+                "model_id" => $this->user->id,
+                "data" => $this->data
             ];
 
             if (!empty($this->template)) {
