@@ -64,7 +64,7 @@ class NotificationsTemplateController extends Controller
             model: NotificationsTemplate::class,
             message: 'NotificationsTemplate created successfully',
             redirect: 'admin.notifications-templates.index',
-            hasMedia: true,
+            hasMedia: (request()->hasFile('image'))?true:false,
             collection: 'image',
         );
 
@@ -111,7 +111,7 @@ class NotificationsTemplateController extends Controller
             model: $model,
             message: 'NotificationsTemplate updated successfully',
             redirect: 'admin.notifications-templates.index',
-            hasMedia: true,
+            hasMedia: (request()->hasFile('image'))?true:false,
             collection: 'image',
         );
 

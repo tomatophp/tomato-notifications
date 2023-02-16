@@ -20,6 +20,9 @@ class UserNotification extends Model implements HasMedia
         'updated_at',
     ];
 
+    protected $casts = [
+        'data'=>'array'
+    ];
     public $fillable = [
         'id',
         'created_by',
@@ -32,6 +35,7 @@ class UserNotification extends Model implements HasMedia
         'type',
         'privacy',
         'template_id',
+        'data'
     ];
 
     public function model()

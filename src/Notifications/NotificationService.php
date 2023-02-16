@@ -148,6 +148,12 @@ class NotificationService extends Notification
             )->setApns(
                 ApnsConfig::create()
                     ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios'))
+                     ->setPayload([
+                        'aps' => [
+                            'mutable-content' => 1,
+                            'sound' => 'default',
+                        ],
+                    ])
             );
     }
 
