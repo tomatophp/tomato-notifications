@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('type')->default('info');
             $table->string('privacy')->default('public');
+            $table->json('data')->nullable();
 
             //If Created By
             $table->unsignedBigInteger('created_by')->nullable();

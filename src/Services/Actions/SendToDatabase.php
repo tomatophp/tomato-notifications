@@ -22,6 +22,7 @@ trait SendToDatabase
             $notification->icon = $this->icon;
             $notification->type = $this->type;
             $notification->url = $this->url;
+            $notification->data = json_decode($this->data);
             if ($this->template) {
                 $notification->template_id = $this->templateModel->id;
             }
