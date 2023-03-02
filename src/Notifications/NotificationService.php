@@ -71,6 +71,7 @@ class NotificationService extends Notification
         $this->provider  = $provider;
         $this->phone  = $phone;
         $this->email  = $email;
+        $this->data  = $data;
     }
 
     /**
@@ -132,6 +133,7 @@ class NotificationService extends Notification
                 'privacy' => $this->privacy,
                 'model' => (string)$this->model,
                 'model_id' => (string)$this->modelId,
+                'data' =>  $this->data??"" ,
             ])
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle($this->title)
