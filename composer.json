@@ -46,8 +46,6 @@
         "tomatophp/tomato-components": "^1.0",
         "tomatophp/tomato-roles": "^1.0",
         "tomatophp/console-helpers": "^1.0",
-        "kreait/firebase-php": "6.3.1",
-        "kreait/firebase-tokens": "3.0",
         "laravel-notification-channels/discord": "^1.4",
         "laravel-notification-channels/fcm": "^2.5",
         "laravel/slack-notification-channel": "^2.5",
