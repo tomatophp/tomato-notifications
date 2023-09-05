@@ -7,11 +7,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use ProtoneMedia\Splade\Facades\Toast;
 use TomatoPHP\TomatoNotifications\Http\Requests\NotificationsLog\NotificationsLogStoreRequest;
 use TomatoPHP\TomatoNotifications\Http\Requests\NotificationsLog\NotificationsLogUpdateRequest;
 use TomatoPHP\TomatoNotifications\Models\NotificationsLogs;
 use TomatoPHP\TomatoNotifications\Tables\NotificationsLogTable;
-use TomatoPHP\TomatoPHP\Services\Tomato;
+use TomatoPHP\TomatoAdmin\Facade\Tomato;
 
 class NotificationsLogController extends Controller
 {
@@ -23,6 +24,7 @@ class NotificationsLogController extends Controller
     {
         return Tomato::index(
             request: $request,
+            model: NotificationsLogs::class,
             view: 'tomato-notifications::notifications-logs.index',
             table: NotificationsLogTable::class,
         );
@@ -113,10 +115,19 @@ class NotificationsLogController extends Controller
      */
     public function destroy(NotificationsLogs $model): RedirectResponse
     {
-        return Tomato::destroy(
+        $response = Tomato::destroy(
             model: $model,
             message: 'NotificationsLog deleted successfully',
             redirect: 'admin.notifications-logs.index',
         );
+
+        return $response->redirect;
+    }
+
+    public function clear(){
+        NotificationsLogs::truncate();
+
+        Toast::success(__('tomato-notifications::global.logs.delete'))->autoDismiss(2);
+        return redirect()->back();
     }
 }

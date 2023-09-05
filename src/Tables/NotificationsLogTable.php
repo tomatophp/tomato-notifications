@@ -57,14 +57,15 @@ class NotificationsLogTable extends AbstractTable
             )
             ->export()
             ->defaultSort('id')
-            ->column(key: "Id",label: trans('tomato-notifications::global.logs.id'), sortable: true)
+            ->column(key: 'actions',label: trans('tomato-admin::global.crud.actions'))
+            ->column(key: "Id",label: trans('tomato-notifications::global.logs.id'), sortable: true, hidden: true)
             ->column(key: "model.name",label: trans('tomato-notifications::global.notifications.model_type'), sortable: true)
             ->column(key: "title",label: trans('tomato-notifications::global.templates.title'), sortable: true)
             ->column(key: "description",label: trans('tomato-notifications::global.templates.body'), sortable: true)
             ->column(key: "type",label: trans('tomato-notifications::global.templates.type'), sortable: true)
             ->column(key: "provider",label: trans('tomato-notifications::global.logs.provider'), sortable: true)
             ->column(key: "created_at",label: trans('tomato-notifications::global.logs.since'), sortable: true)
-            ->column(key: 'actions',label: trans('tomato-admin::global.crud.actions'))
+
             ->paginate(15);
     }
 }

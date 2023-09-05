@@ -40,11 +40,9 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
-        "tomatophp/tomato-admin": "^1.0",
-        "tomatophp/tomato-settings": "^1.0",
-        "tomatophp/tomato-components": "^1.0",
-        "tomatophp/tomato-roles": "^1.0",
+        "php": "^8.1|^8.2",
+        "tomatophp/tomato-admin": "^1.1",
+        "tomatophp/tomato-settings": "^1.1",
         "tomatophp/console-helpers": "^1.0",
         "laravel-notification-channels/discord": "^1.4",
         "laravel-notification-channels/fcm": "^3.1",

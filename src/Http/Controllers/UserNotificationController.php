@@ -14,7 +14,7 @@ use TomatoPHP\TomatoNotifications\Models\NotificationsTemplate;
 use TomatoPHP\TomatoNotifications\Models\UserNotification;
 use TomatoPHP\TomatoNotifications\Services\SendNotification;
 use TomatoPHP\TomatoNotifications\Tables\UserNotificationTable;
-use TomatoPHP\TomatoPHP\Services\Tomato;
+use TomatoPHP\TomatoAdmin\Facade\Tomato;
 
 class UserNotificationController extends Controller
 {
@@ -26,6 +26,7 @@ class UserNotificationController extends Controller
     {
         return Tomato::index(
             request: $request,
+            model: UserNotification::class,
             view: 'tomato-notifications::user-notifications.index',
             table: UserNotificationTable::class,
         );
@@ -123,11 +124,13 @@ class UserNotificationController extends Controller
      */
     public function destroy(UserNotification $model): RedirectResponse
     {
-        return Tomato::destroy(
+        $response = Tomato::destroy(
             model: $model,
             message: 'UserNotification deleted successfully',
             redirect: 'admin.user-notifications.index',
         );
+
+        return $response->redirect;
     }
 
     /**

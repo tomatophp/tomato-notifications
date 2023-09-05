@@ -42,6 +42,7 @@ return [
     ],
     "logs" => [
         "title" => "Notifications Logs",
+        "clear" => "Clear Logs",
         "single" => "Log",
         "back" => "Back",
         "id" => "ID",
@@ -51,6 +52,7 @@ return [
     ],
     "notifications" => [
         "title" => "Notifications",
+        "subject" => "Subject",
         "single" => "Notification",
         "success" => "Notification has been send successfully",
         "log" => "Notifications Log",

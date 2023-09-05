@@ -45,6 +45,7 @@ Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function
 
 Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function () {
     Route::get('admin/notifications-logs', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'index'])->name('notifications-logs.index');
+    Route::post('admin/notifications-logs/clear', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'clear'])->name('notifications-logs.clear');
     Route::get('admin/notifications-logs/api', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'api'])->name('notifications-logs.api');
     Route::get('admin/notifications-logs/create', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'create'])->name('notifications-logs.create');
     Route::post('admin/notifications-logs', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'store'])->name('notifications-logs.store');

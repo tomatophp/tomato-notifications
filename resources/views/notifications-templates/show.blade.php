@@ -1,112 +1,24 @@
-<x-splade-modal class="font-main">
-    <h1 class="text-2xl font-bold mb-4">{{trans('tomato-admin::global.crud.view')}} {{ trans('tomato-notifications::global.templates.single') }} #{{$model->id}}</h1>
 
-    <div class="flex flex-col space-y-4">
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{trans('tomato-notifications::global.templates.image')}}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    <div class="bg-cover w-8 h-8" style="background-image: url('{{$model->getMedia('image')->first() ? $model->getMedia('image')->first()->getUrl() : url("placeholder.webp") }}')"></div>
-                </h3>
-            </div>
-        </div>
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.name')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->name}}
-                  </h3>
-              </div>
-          </div>
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.key')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->key}}
-                  </h3>
-              </div>
-          </div>
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.body')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->body}}
-                  </h3>
-              </div>
-          </div>
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.title')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->title}}
-                  </h3>
-              </div>
-          </div>
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.url')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->url}}
-                  </h3>
-              </div>
-          </div>
-
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.type')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->type}}
-                  </h3>
-              </div>
-          </div>
-
-
-          <div class="flex justify-between">
-              <div>
-                  <h3 class="text-lg font-bold">
-                      {{trans('tomato-notifications::global.templates.action')}}
-                  </h3>
-              </div>
-              <div>
-                  <h3 class="text-lg">
-                      {{ $model->action}}
-                  </h3>
-              </div>
-          </div>
-
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.view')}} {{ trans('tomato-notifications::global.templates.single') }} #{{$model->id}}">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.image')" :value="$model->getMedia('image')->first() ? $model->getMedia('image')->first()->getUrl() : url('placeholder.webp')" type="image" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.name')" :value="$model->name" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.key')" :value="$model->key" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.body')" :value="$model->body" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.title')" :value="$model->title" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.url')" :value="$model->url" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.type')" :value="$model->type" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.action')" :value="$model->action" />
     </div>
-</x-splade-modal>
+
+    <div class="flex justify-start gap-2 pt-3">
+        <x-tomato-admin-button warning label="{{__('Edit')}}" :href="route('admin.notifications-templates.edit', $model->id)"/>
+        <x-tomato-admin-button danger :href="route('admin.notifications-templates.destroy', $model->id)"
+                               confirm="{{trans('tomato-admin::global.crud.delete-confirm')}}"
+                               confirm-text="{{trans('tomato-admin::global.crud.delete-confirm-text')}}"
+                               confirm-button="{{trans('tomato-admin::global.crud.delete-confirm-button')}}"
+                               cancel-button="{{trans('tomato-admin::global.crud.delete-confirm-cancel-button')}}"
+                               method="delete"  label="{{__('Delete')}}" />
+        <x-tomato-admin-button secondary :href="route('admin.notifications-templates.index')" label="{{__('Cancel')}}"/>
+    </div>
+</x-tomato-admin-container>

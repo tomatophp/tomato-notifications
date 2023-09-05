@@ -63,13 +63,16 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
         //Add Middleware Global to Routes web
         TomatoMenu::register([
             Menu::make()
-                ->label(trans('tomato-notifications::global.templates.title'))
-                ->icon("bx bxs-notification")
-                ->route("admin.notifications-templates.index"),
-            Menu::make()
+                ->group(trans('tomato-notifications::global.group'))
                 ->label(trans('tomato-notifications::global.notifications.title'))
                 ->icon("bx bxs-bell")
                 ->route("admin.user-notifications.index"),
+            Menu::make()
+                ->group(trans('tomato-notifications::global.group'))
+                ->label(trans('tomato-notifications::global.templates.title'))
+                ->icon("bx bxs-notification")
+                ->route("admin.notifications-templates.index"),
+
         ]);
     }
 
@@ -78,16 +81,18 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
      */
     public function registerPermissions(): void
     {
-        //Register Permission For Settings
-        TomatoRoles::register(Permission::make()
-            ->name('admin.settings.notifications.index')
-            ->guard('web')
-            ->group('settings')
-        );
-        TomatoRoles::register(Permission::make()
-            ->name('admin.settings.notifications.store')
-            ->guard('web')
-            ->group('settings')
-        );
+        if(class_exists(TomatoRoles::class)){
+            //Register Permission For Settings
+            TomatoRoles::register(Permission::make()
+                ->name('admin.settings.notifications.index')
+                ->guard('web')
+                ->group('settings')
+            );
+            TomatoRoles::register(Permission::make()
+                ->name('admin.settings.notifications.store')
+                ->guard('web')
+                ->group('settings')
+            );
+        }
     }
 }

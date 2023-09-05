@@ -1,82 +1,20 @@
-<x-splade-modal>
-    <h1 class="text-2xl font-bold mb-4">{{trans('tomato-admin::global.crud.view')}} Log #{{$model->id}}</h1>
-    <div class="flex flex-col space-y-4">
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{ trans('tomato-notifications::global.notifications.model_type') }}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->model ? $model->model->name : null}}
-                </h3>
-            </div>
-        </div>
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{trans('tomato-notifications::global.templates.from_title')}}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->title}}
-                </h3>
-            </div>
-        </div>
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{trans('tomato-notifications::global.templates.body')}}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->description}}
-                </h3>
-            </div>
-        </div>
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{trans('tomato-notifications::global.templates.type')}}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->type}}
-                </h3>
-            </div>
-        </div>
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{ trans('tomato-notifications::global.logs.provider') }}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->provider}}
-                </h3>
-            </div>
-        </div>
-
-        <div class="flex justify-between">
-            <div>
-                <h3 class="text-lg font-bold">
-                    {{ trans('tomato-notifications::global.logs.since') }}
-                </h3>
-            </div>
-            <div>
-                <h3 class="text-lg">
-                    {{ $model->created_at->diffForHumans()}}
-                </h3>
-            </div>
-        </div>
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.view')}} UserNotification #{{$model->id}}">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.notifications.model_type')" :value="$model->model ? $model->model->name : null" type="string" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.notifications.subject')" :value="$model->title" type="string" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.logs.provider')" :value="$model->provider" type="string" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.logs.since')" :value="$model->created_at->diffForHumans()" type="string" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.body')" :value="$model->description" type="string" />
+        <x-tomato-admin-row :label="trans('tomato-notifications::global.templates.type')" :value="$model->type" type="string" />
     </div>
-</x-splade-modal>
+
+    <div class="flex justify-start gap-2 pt-3">
+        <x-tomato-admin-button danger :href="route('admin.notifications-logs.destroy', $model->id)"
+                               confirm="{{trans('tomato-admin::global.crud.delete-confirm')}}"
+                               confirm-text="{{trans('tomato-admin::global.crud.delete-confirm-text')}}"
+                               confirm-button="{{trans('tomato-admin::global.crud.delete-confirm-button')}}"
+                               cancel-button="{{trans('tomato-admin::global.crud.delete-confirm-cancel-button')}}"
+                               method="delete"  label="{{__('Delete')}}" />
+        <x-tomato-admin-button secondary :href="route('admin.notifications-logs.index')" label="{{__('Cancel')}}"/>
+    </div>
+</x-tomato-admin-container>
