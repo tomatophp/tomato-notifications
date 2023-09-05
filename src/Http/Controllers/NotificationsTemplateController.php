@@ -4,28 +4,36 @@ namespace TomatoPHP\TomatoNotifications\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use ProtoneMedia\Splade\Facades\Toast;
+use TomatoPHP\TomatoAdmin\Facade\Tomato;
 use TomatoPHP\TomatoNotifications\Http\Requests\NotificationsTemplate\NotificationsTemplateStoreRequest;
 use TomatoPHP\TomatoNotifications\Http\Requests\NotificationsTemplate\NotificationsTemplateUpdateRequest;
 use TomatoPHP\TomatoNotifications\Models\NotificationsTemplate;
 use TomatoPHP\TomatoNotifications\Services\SendNotification;
 use TomatoPHP\TomatoNotifications\Tables\NotificationsTemplateTable;
-use TomatoPHP\TomatoPHP\Services\Tomato;
 
 class NotificationsTemplateController extends Controller
 {
+    public string $model;
+
+    public function __construct()
+    {
+        $this->model = NotificationsTemplate::class;
+    }
+
     /**
      * @param Request $request
-     * @return View
+     * @return View|JsonResponse
      */
-    public function index(Request $request): View
+    public function index(Request $request): View|JsonResponse
     {
         return Tomato::index(
             request: $request,
+            model: $this->model,
             view: 'tomato-notifications::notifications-templates.index',
             table: NotificationsTemplateTable::class,
         );
@@ -57,31 +65,35 @@ class NotificationsTemplateController extends Controller
      * @param NotificationsTemplateStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(NotificationsTemplateStoreRequest $request): RedirectResponse
+    public function store(NotificationsTemplateStoreRequest $request): RedirectResponse|JsonResponse
     {
         $response = Tomato::store(
             request: $request,
             model: NotificationsTemplate::class,
             message: 'NotificationsTemplate created successfully',
             redirect: 'admin.notifications-templates.index',
-            hasMedia: (request()->hasFile('image'))?true:false,
-            collection: 'image',
+            hasMedia: (request()->hasFile('image')) ? true : false,
+            collection: ['image'],
         );
 
-        return $response['redirect'];
+        if ($response instanceof JsonResponse) {
+            return $response;
+        }
+
+        return $response->redirect;
     }
 
     /**
      * @param NotificationsTemplate $model
      * @return View
      */
-    public function show(NotificationsTemplate $model): View
+    public function show(NotificationsTemplate $model): View|JsonResponse
     {
         return Tomato::get(
             model: $model,
             view: 'tomato-notifications::notifications-templates.show',
             hasMedia: true,
-            collection: 'image',
+            collection: ['image'],
         );
     }
 
@@ -95,7 +107,7 @@ class NotificationsTemplateController extends Controller
             model: $model,
             view: 'tomato-notifications::notifications-templates.edit',
             hasMedia: true,
-            collection: 'image',
+            collection: ['image'],
         );
     }
 
@@ -104,31 +116,41 @@ class NotificationsTemplateController extends Controller
      * @param NotificationsTemplate $model
      * @return RedirectResponse
      */
-    public function update(NotificationsTemplateUpdateRequest $request, NotificationsTemplate $model): RedirectResponse
+    public function update(NotificationsTemplateUpdateRequest $request, NotificationsTemplate $model): RedirectResponse|JsonResponse
     {
         $response = Tomato::update(
             request: $request,
             model: $model,
             message: 'NotificationsTemplate updated successfully',
             redirect: 'admin.notifications-templates.index',
-            hasMedia: (request()->hasFile('image'))?true:false,
-            collection: 'image',
+            hasMedia: (request()->hasFile('image')) ? true : false,
+            collection: ['image'],
         );
 
-        return $response['redirect'];
+        if ($response instanceof JsonResponse) {
+            return $response;
+        }
+
+        return $response->redirect;
     }
 
     /**
      * @param NotificationsTemplate $model
      * @return RedirectResponse
      */
-    public function destroy(NotificationsTemplate $model): RedirectResponse
+    public function destroy(NotificationsTemplate $model): RedirectResponse|JsonResponse
     {
-        return Tomato::destroy(
+        $response = Tomato::destroy(
             model: $model,
             message: 'NotificationsTemplate deleted successfully',
             redirect: 'admin.notifications-templates.index',
         );
+
+        if ($response instanceof JsonResponse) {
+            return $response;
+        }
+
+        return $response->redirect;
     }
 
     /**

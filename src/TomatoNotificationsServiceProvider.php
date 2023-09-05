@@ -3,49 +3,51 @@
 namespace TomatoPHP\TomatoNotifications;
 
 use Illuminate\Support\ServiceProvider;
+use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
+use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoNotifications\Console\TomatoNotificationsInstall;
 use TomatoPHP\TomatoNotifications\Menus\NotificationsMenu;
-use TomatoPHP\TomatoPHP\Services\Menu\TomatoMenuRegister;
 use TomatoPHP\TomatoRoles\Services\Permission;
 use TomatoPHP\TomatoRoles\Services\TomatoRoles;
+
 
 class TomatoNotificationsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         //Register Migrations
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         //Register Config file
-        $this->mergeConfigFrom(__DIR__.'/../config/tomato-notifications.php', 'tomato-notifications');
+        $this->mergeConfigFrom(__DIR__ . '/../config/tomato-notifications.php', 'tomato-notifications');
 
         //Register views
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'tomato-notifications');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tomato-notifications');
 
         //Register Langs
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'tomato-notifications');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tomato-notifications');
 
         //Register Routes
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
-          //Publish Views
-          $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-notifications'),
+        //Publish Views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/tomato-notifications'),
         ], 'tomato-notifications-views');
 
         //Publish Config
         $this->publishes([
-            __DIR__.'/../config/tomato-notifications.php' => config_path('tomato-notifications.php'),
+            __DIR__ . '/../config/tomato-notifications.php' => config_path('tomato-notifications.php'),
         ], 'tomato-notifications-config');
 
         //Publish Lang
         $this->publishes([
-            __DIR__.'/../resources/lang' => app_path('lang/vendor/tomato-notifications'),
+            __DIR__ . '/../resources/lang' => app_path('lang/vendor/tomato-notifications'),
         ], 'tomato-notifications-lang');
 
         //Publish Migrations
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
         ], 'tomato-notifications-migrations');
 
         //Register install command
@@ -53,14 +55,22 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
             TomatoNotificationsInstall::class
         ]);
 
-        TomatoMenuRegister::registerMenu(NotificationsMenu::class);
-
         $this->registerPermissions();
     }
 
     public function boot(): void
     {
         //Add Middleware Global to Routes web
+        TomatoMenu::register([
+            Menu::make()
+                ->label(trans('tomato-notifications::global.templates.title'))
+                ->icon("bx bxs-notification")
+                ->route("admin.notifications-templates.index"),
+            Menu::make()
+                ->label(trans('tomato-notifications::global.notifications.title'))
+                ->icon("bx bxs-bell")
+                ->route("admin.user-notifications.index"),
+        ]);
     }
 
     /**
