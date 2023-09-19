@@ -28,6 +28,7 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tomato-notifications');
 
         //Register Routes
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         //Publish Views
