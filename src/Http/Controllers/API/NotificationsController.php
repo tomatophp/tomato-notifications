@@ -182,7 +182,7 @@ class NotificationsController extends Controller
 
         if ($request->has('token')) {
             $token = new UserToken();
-            $token->model_type = $this->model::class;
+            $token->model_type = $this->model;
             $token->model_id = $request->user()->id;
             $token->provider = "fcm-api";
             $token->provider_token = $request->get('token');
