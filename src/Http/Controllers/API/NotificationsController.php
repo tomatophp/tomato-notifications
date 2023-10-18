@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
+use TomatoPHP\TomatoAdmin\Helpers\ApiResponse;
 use TomatoPHP\TomatoNotifications\Models\NotificationsTemplate;
 use TomatoPHP\TomatoNotifications\Models\UserNotification;
 use TomatoPHP\TomatoNotifications\Models\UserToken;
@@ -182,21 +183,28 @@ class NotificationsController extends Controller
         ]);
 
         if ($request->has('token') && $request->get('token')) {
-            $token = new UserToken();
-            $token->model_type = $this->model;
-            $token->model_id = $request->user()->id;
-            $token->provider = $request->has('provider') ? $request->get('provider')  : "fcm-api";
-            $token->provider_token = $request->get('token');
-            $token->save();
+            $checkIfTokenExists = UserToken::where('model_type', $this->model)
+                ->where('provider', $request->has('provider') ? $request->get('provider')  : "fcm-api")
+                ->where('model_id', $request->user()->id)->first();
 
-            return response()->json([
-                "success" => true,
-                "message" => __('Your Notifications Has Been On'),
-                "body" => []
-            ]);
+            if($checkIfTokenExists){
+                $checkIfTokenExists->provider = $request->has('provider') ? $request->get('provider')  : "fcm-api";
+                $checkIfTokenExists->provider_token = $request->get('token');
+                $checkIfTokenExists->save();
+            }
+            else {
+                $token = new UserToken();
+                $token->model_type = $this->model;
+                $token->model_id = $request->user()->id;
+                $token->provider = $request->has('provider') ? $request->get('provider')  : "fcm-api";
+                $token->provider_token = $request->get('token');
+                $token->save();
+            }
+
+            return ApiResponse::success(__('Your Notifications Has Been On'));
         }
 
-        UserToken::where('model_type', $this->model::class)
+        UserToken::where('model_type', $this->model)
             ->where('provider', $request->has('provider') ? $request->get('provider')  : "fcm-api")
             ->where('model_id', $request->user()->id)
             ->delete();
