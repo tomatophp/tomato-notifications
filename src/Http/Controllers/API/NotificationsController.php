@@ -177,14 +177,15 @@ class NotificationsController extends Controller
     public function setting(Request $request)
     {
         $request->validate([
-           "token" => "nullable|string"
+           "token" => "nullable|string",
+           "provider" => "nullable|string"
         ]);
 
-        if ($request->has('token')) {
+        if ($request->has('token') && $request->get('token')) {
             $token = new UserToken();
             $token->model_type = $this->model;
             $token->model_id = $request->user()->id;
-            $token->provider = "fcm-api";
+            $token->provider = $request->has('provider') ? $request->get('provider')  : "fcm-api";
             $token->provider_token = $request->get('token');
             $token->save();
 
@@ -196,7 +197,7 @@ class NotificationsController extends Controller
         }
 
         UserToken::where('model_type', $this->model::class)
-            ->where('provider', 'fcm-api')
+            ->where('provider', $request->has('provider') ? $request->get('provider')  : "fcm-api")
             ->where('model_id', $request->user()->id)
             ->delete();
 
