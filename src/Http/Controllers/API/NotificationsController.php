@@ -24,7 +24,7 @@ class NotificationsController extends Controller
             $this->model = get_class(auth()->user()->getModel());
         }
         else {
-            $this->model = \TomatoPHP\TomatoCRM\Models\Account::class;
+            $this->model = config('tomato-crm.model');
         }
 
     }

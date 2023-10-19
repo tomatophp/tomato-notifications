@@ -43,7 +43,7 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
 
         //Publish Lang
         $this->publishes([
-            __DIR__ . '/../resources/lang' => app_path('lang/vendor/tomato-notifications'),
+            __DIR__ . '/../resources/lang' => base_path('lang/vendor/tomato-notifications'),
         ], 'tomato-notifications-lang');
 
         //Publish Migrations
