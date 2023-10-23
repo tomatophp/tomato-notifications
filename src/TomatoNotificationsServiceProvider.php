@@ -2,7 +2,9 @@
 
 namespace TomatoPHP\TomatoNotifications;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
 use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoNotifications\Console\TomatoNotificationsInstall;
@@ -75,6 +77,9 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
                 ->route("admin.notifications-templates.index"),
 
         ]);
+
+        $this->registerConfig();
+
     }
 
     /**
@@ -94,6 +99,20 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
                 ->guard('web')
                 ->group('settings')
             );
+        }
+    }
+
+    public function registerConfig(){
+        try {
+            Config::set('firebase.projects.app', [
+                'credentials' => env('FIREBASE_CREDENTIALS', Str::of(setting('google_firebase_cr'))->replace('https://tomato.test/storage/settings/', base_path('/public/storage/settings/'))->toString()),
+                'database' => [
+                    'url' => env('FIREBASE_DATABASE_URL', setting('google_firebase_database_url')),
+                ]
+            ]);
+        }
+        catch (\Exception $e){
+            \Log::error($e);
         }
     }
 }

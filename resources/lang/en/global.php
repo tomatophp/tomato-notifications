@@ -7,6 +7,7 @@ return [
         "single" => "Template",
         "image" => "Image",
         "send" => "Send",
+        "icon" => "Icon",
         "id" => "ID",
         "send_message" => "Your template has been sent successfully",
         "send_error" => "An error occurred while sending your template",

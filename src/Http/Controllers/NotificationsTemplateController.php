@@ -73,7 +73,9 @@ class NotificationsTemplateController extends Controller
             message: 'NotificationsTemplate created successfully',
             redirect: 'admin.notifications-templates.index',
             hasMedia: (request()->hasFile('image')) ? true : false,
-            collection: ['image'],
+            collection: [
+                'image' => false
+            ],
         );
 
         if ($response instanceof JsonResponse) {
@@ -107,7 +109,9 @@ class NotificationsTemplateController extends Controller
             model: $model,
             view: 'tomato-notifications::notifications-templates.edit',
             hasMedia: true,
-            collection: ['image'],
+            collection: [
+                'image' => false
+            ],
         );
     }
 
@@ -124,7 +128,9 @@ class NotificationsTemplateController extends Controller
             message: 'NotificationsTemplate updated successfully',
             redirect: 'admin.notifications-templates.index',
             hasMedia: (request()->hasFile('image')) ? true : false,
-            collection: ['image'],
+            collection: [
+                'image' => false
+            ],
         );
 
         if ($response instanceof JsonResponse) {
@@ -144,6 +150,9 @@ class NotificationsTemplateController extends Controller
             model: $model,
             message: 'NotificationsTemplate deleted successfully',
             redirect: 'admin.notifications-templates.index',
+            collection: [
+                'image' => false
+            ],
         );
 
         if ($response instanceof JsonResponse) {

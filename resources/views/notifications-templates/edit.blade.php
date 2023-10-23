@@ -26,6 +26,9 @@
                 <option value="system" selected>{{trans('tomato-notifications::global.templates.system')}}</option>
                 <option value="manual">{{trans('tomato-notifications::global.templates.manual')}}</option>
             </x-splade-select>
+
+            <x-splade-input class="col-span-2" name="icon" type="text"  :placeholder="trans('tomato-notifications::global.templates.icon')" :label="trans('tomato-notifications::global.templates.icon')" required/>
+
         </div>
 
 

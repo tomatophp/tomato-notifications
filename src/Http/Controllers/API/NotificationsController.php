@@ -9,6 +9,7 @@ use ProtoneMedia\Splade\Facades\Toast;
 use TomatoPHP\TomatoAdmin\Helpers\ApiResponse;
 use TomatoPHP\TomatoNotifications\Models\NotificationsTemplate;
 use TomatoPHP\TomatoNotifications\Models\UserNotification;
+use TomatoPHP\TomatoNotifications\Models\UserReadNotification;
 use TomatoPHP\TomatoNotifications\Models\UserToken;
 
 class NotificationsController extends Controller
@@ -47,7 +48,7 @@ class NotificationsController extends Controller
         $limit = $request->limit ?? 10;
 
         $notifications = UserNotification::where([
-            'model_type' => $this->model::class,
+            'model_type' => $this->model,
             'model_id' => auth()->user()->id,
         ])
             ->select([
@@ -65,16 +66,12 @@ class NotificationsController extends Controller
 
         foreach ($notifications as $item) {
             $item->icon = $item->template ? count($item->template->getMedia('image')) ? $item->template->getMedia('image')->first()->getUrl() : null : null;
-            $item->is_read = UserReadNotification::where('model_type', $this->model::class)
+            $item->is_read = UserReadNotification::where('model_type', $this->model)
                 ->where('model_id', $request->user()->id)
                 ->where('notification_id', $item->id)->first() ? 1 : 0;
             unset($item->template);
         }
-        return response()->json([
-            "success" => true,
-            "message" => __('all notifications'),
-            "data" => UserNotificationResource::collection($notifications)
-        ]);
+        return ApiResponse::data($notifications);
 
     }
 
@@ -88,7 +85,7 @@ class NotificationsController extends Controller
     public function clear()
     {
 
-        UserNotification::where('model_type', $this->model::class)->where('model_id', auth()->user()->id)->delete();
+        UserNotification::where('model_type', $this->model)->where('model_id', auth()->user()->id)->delete();
 
         return response()->json([
             "success" => true,
