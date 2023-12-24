@@ -130,7 +130,7 @@ class UserNotificationController extends Controller
             redirect: 'admin.user-notifications.index',
         );
 
-        return $response->redirect;
+        return back();
     }
 
     /**

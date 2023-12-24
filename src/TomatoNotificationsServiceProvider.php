@@ -66,13 +66,13 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
         //Add Middleware Global to Routes web
         TomatoMenu::register([
             Menu::make()
-                ->group(trans('tomato-notifications::global.group'))
-                ->label(trans('tomato-notifications::global.notifications.title'))
+                ->group(__('Notifications'))
+                ->label(__('Notifications'))
                 ->icon("bx bxs-bell")
                 ->route("admin.user-notifications.index"),
             Menu::make()
-                ->group(trans('tomato-notifications::global.group'))
-                ->label(trans('tomato-notifications::global.templates.title'))
+                ->group(__('Notifications'))
+                ->label(__('Templates'))
                 ->icon("bx bxs-notification")
                 ->route("admin.notifications-templates.index"),
 

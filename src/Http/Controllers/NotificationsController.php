@@ -18,7 +18,7 @@ class NotificationsController extends Controller
             ->where('model_id', auth()->user()->id)
             ->orWhere('model_id', null)
             ->orderBy('id', 'desc')
-            ->take(10)->get();
+            ->paginate(5);
 
         foreach ($notification as $item) {
             $item->date = $item->created_at->diffForHumans();
@@ -32,6 +32,19 @@ class NotificationsController extends Controller
         ]);
     }
 
+    public function show(UserNotification $model)
+    {
+        $model->read();
+        $model->date = $model->created_at->diffForHumans();
+        if ($model->template_id) {
+            $template = NotificationsTemplate::find($model->template_id);
+            $model->image = count($template->getMedia('image')) ? $template->getMedia('image')->first()->getUrl() : url('images/default.png');
+        }
+        return view('tomato-notifications::user-notifications.user-show', [
+            "model" => $model
+        ]);
+    }
+
     public function clearUser(): \Illuminate\Http\RedirectResponse
     {
         UserNotification::where('model_type',User::class)
@@ -41,6 +54,37 @@ class NotificationsController extends Controller
 
         Toast::title(trans('tomato-notifications::global.notifications.success'))->success()->autoDismiss(2);
         return redirect()->back();
+    }
+
+    public function read()
+    {
+        $notifications = UserNotification::where('model_type',User::class)
+            ->where('model_id', auth()->user()->id)
+            ->orderBy('id', 'desc')
+            ->take(10)->get();
+
+        foreach ($notifications as $notification){
+            $notification->read();
+        }
+
+        Toast::title(__('Notifications is marked as read'))->success()->autoDismiss(2);
+        return redirect()->back();
+    }
+
+    public function readSelected(UserNotification $model)
+    {
+        $model->read();
+
+        Toast::title(__('Notifications is marked as read'))->success()->autoDismiss(2);
+        return redirect()->back();
+    }
+
+    public function destroy(UserNotification $model)
+    {
+        $model->delete();
+
+        Toast::title(__('Notifications is marked as read'))->success()->autoDismiss(2);
+        return redirect()->route('admin.notifications.index');
     }
 
     public function token(Request $request)

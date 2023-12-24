@@ -6,18 +6,26 @@
         <x-tomato-admin-button :modal="true" :href="route('admin.user-notifications.create')" type="link">
             {{trans('tomato-admin::global.crud.create-new')}} {{ trans('tomato-notifications::global.notifications.single') }}
         </x-tomato-admin-button>
-        <x-tomato-admin-button :href="route('admin.settings.notifications.index')" type="link">
-            {{  trans('tomato-notifications::global.settings.title') }}
-        </x-tomato-admin-button>
-        <x-tomato-admin-button :href="route('admin.notifications-logs.index')" type="link">
-            {{  trans('tomato-notifications::global.notifications.log') }}
-        </x-tomato-admin-button>
     </x-slot:buttons>
 
 
     <div class="pb-12" v-cloak>
         <div class="mx-auto">
             <x-splade-table :for="$table" striped>
+                <x-slot:actions>
+                    <x-tomato-admin-table-action
+                        secondary
+                        icon="bx bxs-cog"
+                        :label="trans('tomato-notifications::global.settings.title')"
+                        :href="route('admin.settings.notifications.index')"
+                    />
+                    <x-tomato-admin-table-action
+                        secondary
+                        icon="bx bx-history"
+                        :label="trans('tomato-notifications::global.notifications.log')"
+                        :href="route('admin.notifications-logs.index')"
+                    />
+                </x-slot:actions>
                 <x-splade-cell actions>
                     <div class="flex justify-start">
                         <x-tomato-admin-button confirm :title="trans('tomato-notifications::global.notifications.resend')" :href="route('admin.user-notifications.resend', $item->id)" type="icon">

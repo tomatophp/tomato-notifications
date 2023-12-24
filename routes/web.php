@@ -13,8 +13,12 @@ Route::middleware([
     'splade',
     'verified'
 ])->name('admin.')->group(function () {
-    Route::get('admin/notifications', [NotificationsController::class, 'index'])->name('admin.notifications.index');
+    Route::get('admin/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
     Route::delete('admin/notifications/clear', [NotificationsController::class, 'clearUser'])->name('notifications.clear');
+    Route::post('admin/notifications/read', [NotificationsController::class, 'read'])->name('notifications.read');
+    Route::get('admin/notifications/{model}', [NotificationsController::class, 'show'])->name('notifications.show');
+    Route::post('admin/notifications/{model}/read', [NotificationsController::class, 'readSelected'])->name('notifications.read.selected');
+    Route::delete('admin/notifications/{model}/destroy', [NotificationsController::class, 'destroy'])->name('notifications.destroy');
 });
 
 Route::post('token', [NotificationsController::class, 'token'])->name('admin.notifications.token');

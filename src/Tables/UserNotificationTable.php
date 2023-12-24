@@ -56,11 +56,10 @@ class UserNotificationTable extends AbstractTable
                 confirm: true
             )
             ->export()
-            ->defaultSort('id')
+            ->defaultSort('id','desc')
             ->column(key: "id", label: trans('tomato-notifications::global.templates.id'), sortable: true)
             ->column(key: "model.name", label: trans('tomato-notifications::global.notifications.model_type'), sortable: true)
             ->column(key: "title", label: trans('tomato-notifications::global.templates.title'), sortable: true)
-            ->column(key: "description", label: trans('tomato-notifications::global.templates.body'), sortable: true)
             ->column(key: "type", label: trans('tomato-notifications::global.templates.type'), sortable: true)
             ->column(key: "privacy", label: trans('tomato-notifications::global.notifications.privacy'), sortable: true)
             ->column(key: 'actions',label: trans('tomato-admin::global.crud.actions'))

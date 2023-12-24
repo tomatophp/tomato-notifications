@@ -1,15 +1,15 @@
 <x-tomato-admin-layout>
-    <x-slot name="header">
+    <x-slot:header>
         {{trans('tomato-notifications::global.settings.title')}}
-    </x-slot>
+    </x-slot:header>
 
-    <x-slot name="headerBody">
+    <x-slot:buttons>
         <div class="flex">
             <Link href="/admin/user-notifications" class="filament-button inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 filament-page-button-action">
                 {{ trans('tomato-notifications::global.logs.back') }}
             </Link>
         </div>
-    </x-slot>
+    </x-slot:buttons>
 
     <div class="flex flex-col gap-4 mb-4">
         <div>

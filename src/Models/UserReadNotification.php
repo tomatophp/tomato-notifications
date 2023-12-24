@@ -9,14 +9,16 @@ class UserReadNotification extends Model
     protected $table = 'user_read_notifications';
 
     protected $fillable = [
-        'user_notification_id',
+        'notification_id',
         'model_type',
         'model_id',
+        'read',
+        'open',
     ];
 
     public function userNotification()
     {
-        return $this->belongsTo(UserNotification::class, 'user_notification_id');
+        return $this->belongsTo(UserNotification::class, 'notification_id');
     }
 
     public function model()
