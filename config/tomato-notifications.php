@@ -50,6 +50,10 @@ return [
             "id" => "email"
         ],
         [
+            "name" => 'SMS Misr',
+            "id" => "sms-misr"
+        ],
+        [
             "name" =>'Slack',
             "id" => "slack",
         ],
@@ -77,10 +81,31 @@ return [
             "name" => 'SMS MessageBird',
             "id" => "sms-messagebird"
         ]
+
     ],
 
     "lang" => [
         "ar" => "arabic",
         "en" => "english"
+    ],
+
+    "email" => [
+        "template" => null
+    ],
+
+    "drivers" => [
+        "sms-misr" => [
+            "environment" => env('SMS_MISR_ENV', 1),
+            "username" => env('SMS_MISR_USERNAME'),
+            "password" => env('SMS_MISR_PASSWORD'),
+            "sender" => env('SMS_MISR_SENDER'),
+            "language" => env('SMS_MISR_LANGUAGE', 1),
+        ],
+        "slack" => [
+            "webhook" => env('SLACK_WEBHOOK'),
+        ],
+        "discord" => [
+            "webhook" => env('DISCORD_WEBHOOK'),
+        ]
     ]
 ];

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\File;
 use TomatoPHP\TomatoNotifications\Models\NotificationsLogs;
 use TomatoPHP\TomatoNotifications\Notifications\NotificationService;
+use Shabayek\Sms\Facades\Sms;
 
 class NotificationJop implements ShouldQueue
 {
@@ -64,20 +65,38 @@ class NotificationJop implements ShouldQueue
             $this->user->fcmId = $this->user->id;
         }
 
-        $this->user->notify(new NotificationService(
-            $this->title,
-            $this->message,
-            $this->icon,
-            (string)$this->image,
-            $this->url,
-            $this->type,
-            $this->privacy,
-            $this->provider,
-            $this->model,
-            (string)$this->model_id,
-            null,null,$this->data
-        ));
+        if($this->provider === 'sms-misr'){
+            if($this->user->phone){
+                $params = [
+                    'environment' => config('tomato-notifications.drivers.sms-misr.environment', 1),
+                    'username' => config('tomato-notifications.drivers.sms-misr.username'),
+                    'password' => config('tomato-notifications.drivers.sms-misr.password'),
+                    'language' => config('tomato-notifications.drivers.sms-misr.language', 1),
+                    'sender' => config('tomato-notifications.drivers.sms-misr.sender'),
+                    'mobile' => $this->user->phone,
+                    'message' => $this->message,
+                    'delayUntil' => null,
+                ];
 
+                Http::post('https://smsmisr.com/api/SMS', $params)->json();
+            }
+        }
+        else {
+            $this->user->notify(new NotificationService(
+                $this->title,
+                $this->message,
+                $this->icon,
+                (string)$this->image,
+                $this->url,
+                $this->type,
+                $this->privacy,
+                $this->provider,
+                $this->model,
+                (string)$this->model_id,
+                null,null,$this->data
+            ));
+        }
+        
         $log = new NotificationsLogs();
         $log->title = $this->title;
         $log->description = $this->message;
