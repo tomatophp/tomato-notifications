@@ -181,17 +181,22 @@ class NotificationsTemplateController extends Controller
             $titleBody[] = "test-body";
         }
 
-        SendNotification::make($template->providers)
-            ->template($template->key)
-            ->findTitle($matchesTitle)
-            ->replaceTitle($titleFill)
-            ->findBody($matchesBody)
-            ->replaceBody($titleBody)
-            ->model(User::class)
-            ->id(User::first()->id)
-            ->privacy('private')
-            ->fire();
+        try {
+            SendNotification::make($template->providers)
+                ->template($template->key)
+                ->findTitle($matchesTitle)
+                ->replaceTitle($titleFill)
+                ->findBody($matchesBody)
+                ->replaceBody($titleBody)
+                ->model(User::class)
+                ->id(User::first()->id)
+                ->privacy('private')
+                ->fire();
 
+        }catch (\Exception $exception){
+            Toast::danger(__('Please Check Your Provider Settings'))->autoDismiss(2);
+            return back();
+        }
         Toast::title(trans('tomato-notifications::global.templates.send_message'))->success()->autoDismiss(2);
         return back();
     }

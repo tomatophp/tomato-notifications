@@ -4,12 +4,13 @@
             <x-splade-file class="col-span-2" name="image"  :placeholder="trans('tomato-notifications::global.templates.image')" :label="trans('tomato-notifications::global.templates.image')"  filepond />
             <x-splade-input name="name" type="text"  :placeholder="trans('tomato-notifications::global.templates.name')" :label="trans('tomato-notifications::global.templates.name')" required/>
             <x-splade-input name="key" type="text"  :placeholder="trans('tomato-notifications::global.templates.key')" :label="trans('tomato-notifications::global.templates.key')" required/>
-            @foreach(config('tomato-notifications.lang') as $key=>$lang)
-                <x-splade-input name="title[{{$key}}]" type="text"  placeholder="{{trans('tomato-notifications::global.templates.from_title')}} {{trans('tomato-notifications::global.lang.' . $lang)}}" label="{{trans('tomato-notifications::global.templates.from_title')}} {{trans('tomato-notifications::global.lang.' . $lang)}}" required/>
-            @endforeach
-            @foreach(config('tomato-notifications.lang') as $key=>$lang)
-                <x-splade-textarea name="body[{{$key}}]" type="text"  placeholder="{{trans('tomato-notifications::global.templates.body')}} {{trans('tomato-notifications::global.lang.' . $lang)}}" label="{{trans('tomato-notifications::global.templates.body')}} {{trans('tomato-notifications::global.lang.' . $lang)}}" required/>
-            @endforeach
+            <div class="col-span-2">
+                <x-tomato-translation name="title" type="text"  placeholder="{{trans('tomato-notifications::global.templates.from_title')}}" label="{{trans('tomato-notifications::global.templates.from_title')}}" required/>
+            </div>
+            <div class="col-span-2">
+                <x-tomato-translation textarea name="body" type="text"  placeholder="{{trans('tomato-notifications::global.templates.body')}}" label="{{trans('tomato-notifications::global.templates.body')}}" required/>
+            </div>
+
             <x-splade-input name="url" type="text" label="{{trans('tomato-notifications::global.templates.url')}}"  placeholder="{{trans('tomato-notifications::global.templates.url')}}" required/>
             <x-splade-select name="type" label="{{trans('tomato-notifications::global.templates.type')}}" required choices>
                 @foreach(config('tomato-notifications.types') as $type)
