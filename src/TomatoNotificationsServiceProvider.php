@@ -80,6 +80,10 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
 
         $this->registerConfig();
 
+        $this->app->bind('tomato-notify', function () {
+            return new \TomatoPHP\TomatoNotifications\Services\SimpleNotify();
+        });
+
     }
 
     /**

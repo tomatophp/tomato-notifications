@@ -34,8 +34,7 @@ class NotificationService
                 "provider"=>"fcm-api ",
                 "provider_token"=>$token
             ]);
-
-
+        
     }
 
     public function delete( int $id):void{
