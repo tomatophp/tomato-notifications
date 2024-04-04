@@ -39,9 +39,9 @@ class NotifySMSMisrJob implements ShouldQueue
             'environment' => config('tomato-notifications.drivers.sms-misr.environment', 1),
             'username' => config('tomato-notifications.drivers.sms-misr.username'),
             'password' => config('tomato-notifications.drivers.sms-misr.password'),
-            'language' => config('tomato-notifications.drivers.sms-misr.language', 1),
+            'language' => app()->getLocale() === 'ar' ? 2 : 1,
             'sender' => config('tomato-notifications.drivers.sms-misr.sender'),
-            'mobile' => $this->phone,
+            'mobile' => $this->user->phone,
             'message' => $this->message,
             'delayUntil' => null,
         ];
