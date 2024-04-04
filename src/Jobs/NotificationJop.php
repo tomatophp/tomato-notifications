@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use TomatoPHP\TomatoNotifications\Models\NotificationsLogs;
 use TomatoPHP\TomatoNotifications\Notifications\NotificationService;
 use Shabayek\Sms\Facades\Sms;
+use Illuminate\Support\Facades\Http;
 
 class NotificationJop implements ShouldQueue
 {
@@ -71,7 +72,7 @@ class NotificationJop implements ShouldQueue
                     'environment' => config('tomato-notifications.drivers.sms-misr.environment', 1),
                     'username' => config('tomato-notifications.drivers.sms-misr.username'),
                     'password' => config('tomato-notifications.drivers.sms-misr.password'),
-                    'language' => config('tomato-notifications.drivers.sms-misr.language', 1),
+                    'language' => app()->getLocale() === 'ar' ? 2 : 1,
                     'sender' => config('tomato-notifications.drivers.sms-misr.sender'),
                     'mobile' => $this->user->phone,
                     'message' => $this->message,
