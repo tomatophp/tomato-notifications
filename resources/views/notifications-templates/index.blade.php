@@ -2,6 +2,9 @@
     <x-slot:header>
         {{ trans('tomato-notifications::global.templates.title') }}
     </x-slot:header>
+    <x-slot:icon>
+        bx bxs-notification
+    </x-slot:icon>
     <x-slot:buttons>
         <x-tomato-admin-button :modal="true" href="/admin/notifications-templates/create" type="link">
             {{trans('tomato-admin::global.crud.create-new')}} {{ trans('tomato-notifications::global.templates.single') }}
@@ -26,14 +29,14 @@
                             <x-heroicon-s-pencil class="h-6 w-6"/>
                         </x-tomato-admin-button>
 
-                        <x-tomato-admin-button :href="route('admin.notifications-templates.destroy', $item->id)"
+                        <x-tomato-admin-button confirm-danger :href="route('admin.notifications-templates.destroy', $item->id)"
                               confirm="{{trans('tomato-admin::global.crud.delete-confirm')}}"
                               confirm-text="{{trans('tomato-admin::global.crud.delete-confirm-text')}}"
                               confirm-button="{{trans('tomato-admin::global.crud.delete-confirm-button')}}"
                               cancel-button="{{trans('tomato-admin::global.crud.delete-confirm-cancel-button')}}"
                               method="delete"
-                                               type="icon"
-                                               danger
+                               type="icon"
+                               danger
 
                         >
                             <x-heroicon-s-trash class="h-6 w-6"/>

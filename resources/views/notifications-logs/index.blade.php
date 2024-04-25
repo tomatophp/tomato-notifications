@@ -2,6 +2,9 @@
     <x-slot:header>
         {{ trans('tomato-notifications::global.logs.title') }}
     </x-slot:header>
+    <x-slot:icon>
+        bx bx-history
+    </x-slot:icon>
     <x-slot:buttons>
         <x-tomato-admin-button :modal="true" :href="route('admin.user-notifications.index')" type="link">
             {{ trans('tomato-notifications::global.logs.back') }}
