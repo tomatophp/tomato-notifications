@@ -5,15 +5,17 @@
                 class="filament-notifications-notification pointer-events-auto invisible flex gap-3 w-full transition duration-300"
                 style="display: flex; visibility: visible;">
 
-                @if($model->image)
+                @if($model->image && $model->image!==url('images/default.png'))
                     <div class="flex flex-col items-center justify-center">
                         <div style="background-image: url('{{$model->image}}')" class="rounded-lg h-16 w-16 bg-center bg-cover">
 
                         </div>
                     </div>
                 @else
-                    <div class="flex flex-col items-center justify-center">
-                        <x-heroicon-s-bell-alert class="w-8 h-8 text-primary-500" />
+                    <div class="rounded-lg h-16 w-16 flex flex-col border border-zinc-200 dark:border-zinc-700 justify-center items-center">
+                        <div>
+                            <i class="{{ $model->icon }} text-2xl"></i>
+                        </div>
                     </div>
                 @endif
 

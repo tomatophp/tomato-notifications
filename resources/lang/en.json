@@ -4,5 +4,9 @@
     "Send": "Send",
     "Log": "Log",
     "Notifications Settings": "Notifications Settings",
-    "Manage you notifications settings, and link FCM cloud messaging." : "Manage you notifications settings, and link FCM cloud messaging."
+    "Manage you notifications settings, and link FCM cloud messaging." : "Manage you notifications settings, and link FCM cloud messaging.",
+    "User Notifications": "User Notifications",
+    "Make All As Read": "Make All As Read",
+    "Clear Notifications": "Clear Notifications",
+    "UserNotification": "User Notification"
 }

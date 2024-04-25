@@ -10,16 +10,18 @@
                                     class="filament-notifications-notification pointer-events-auto invisible flex gap-3 w-full transition duration-300"
                                     style="display: flex; visibility: visible;">
 
-                                    @if($notification->image)
+                                    @if($notification->image && $notification->image!==url('images/default.png'))
                                         <div class="flex flex-col items-center justify-center">
                                             <div style="background-image: url('{{$notification->image}}')" class="rounded-lg h-16 w-16 bg-center bg-cover">
 
                                             </div>
                                         </div>
                                     @else
-                                        <svg class="filament-notifications-icon h-6 w-6 text-zinc-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                        </svg>
+                                        <div class="rounded-lg h-16 w-16 flex flex-col border border-zinc-200 dark:border-zinc-700 justify-center items-center">
+                                            <div>
+                                                <i class="{{ $notification->icon }} text-2xl"></i>
+                                            </div>
+                                        </div>
                                     @endif
 
                                     <x-splade-link href="{{route('admin.notifications.show', $notification->id)}}" class="grid flex-1">

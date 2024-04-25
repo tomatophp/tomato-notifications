@@ -4,5 +4,9 @@
     "Send" : "ارسال",
     "Log": "السجل",
     "Notifications Settings": "اعدادات التنبيهات",
-    "Manage you notifications settings, and link FCM cloud messaging." : "ادارة اعدادات التنبيهات الخاصة بك، وربط خدمة FCM للرسائل السحابية."
+    "Manage you notifications settings, and link FCM cloud messaging." : "ادارة اعدادات التنبيهات الخاصة بك، وربط خدمة FCM للرسائل السحابية.",
+    "User Notifications": "تنبيهات المستخدم",
+    "Make All As Read": "جعل الكل مقروء",
+    "Clear Notifications": "مسح التنبيهات",
+    "UserNotification": "تنبيه المستخدم"
 }
