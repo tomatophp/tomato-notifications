@@ -41,13 +41,15 @@
     ],
     "require": {
         "php": "^8.1|^8.2",
-        "tomatophp/tomato-admin": "^1.1",
+        "tomatophp/tomato-admin": "^1.2",
+        "tomatophp/tomato-plugins": "^1.2",
         "tomatophp/tomato-settings": "^1.1",
-        "tomatophp/console-helpers": "^1.0",
+        "tomatophp/console-helpers": "^1.1",
         "tomatophp/discord-notifications": "^1.0",
         "tomatophp/fcm-notifications": "^1.0",
         "tomatophp/pusher-notifications": "^1.0",
         "tomatophp/messagebird-notifications": "^1.0",
+        "laravel/slack-notification-channel": "^3.2",
         "spatie/laravel-translatable": "*"
     }
 }
