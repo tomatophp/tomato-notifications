@@ -2,5 +2,7 @@
     "Notifications" : "Notifications",
     "Templates": "Templates",
     "Send": "Send",
-    "Log": "Log"
+    "Log": "Log",
+    "Notifications Settings": "Notifications Settings",
+    "Manage you notifications settings, and link FCM cloud messaging." : "Manage you notifications settings, and link FCM cloud messaging."
 }

@@ -2,5 +2,7 @@
     "Notifications" : "التنبيهات",
     "Templates": "القوالب",
     "Send" : "ارسال",
-    "Log": "السجل"
+    "Log": "السجل",
+    "Notifications Settings": "اعدادات التنبيهات",
+    "Manage you notifications settings, and link FCM cloud messaging." : "ادارة اعدادات التنبيهات الخاصة بك، وربط خدمة FCM للرسائل السحابية."
 }

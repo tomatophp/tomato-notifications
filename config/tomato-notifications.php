@@ -50,6 +50,10 @@ return [
             "id" => "email"
         ],
         [
+            "name" =>'Database',
+            "id" => "database"
+        ],
+        [
             "name" => 'SMS Misr',
             "id" => "sms-misr"
         ],

@@ -6,18 +6,10 @@
         bx bxs-bell
     </x-slot:icon>
     <x-slot:buttons>
-        <x-tomato-admin-dropdown :full="false">
-            <x-slot:button>
-                <x-tomato-admin-button warning type="button">
-                    <x-tomato-admin-tooltip :text="trans('tomato-notifications::global.settings.title')">
-                        <i class="bx bx-cog text-lg mt-1"></i>
-                    </x-tomato-admin-tooltip>
-                </x-tomato-admin-button>
-            </x-slot:button>
 
-            <x-tomato-admin-dropdown-item type="link" :href="route('admin.settings.notifications.index')" icon="bx bx-cog" :label="trans('tomato-notifications::global.settings.title')" />
-            <x-tomato-admin-dropdown-item type="link" :href="route('admin.notifications-logs.index')" icon="bx bx-history" :label="trans('tomato-notifications::global.logs.title')" />
-        </x-tomato-admin-dropdown>
+        <x-tomato-admin-button warning  :href="route('admin.notifications-logs.index')" type="link">
+            {{ trans('tomato-notifications::global.logs.title') }}
+        </x-tomato-admin-button>
         <x-tomato-admin-button :modal="true" :href="route('admin.user-notifications.create')" type="link">
             {{trans('tomato-admin::global.crud.create-new')}} {{ trans('tomato-notifications::global.notifications.single') }}
         </x-tomato-admin-button>

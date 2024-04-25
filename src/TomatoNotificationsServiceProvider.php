@@ -11,6 +11,8 @@ use TomatoPHP\TomatoNotifications\Console\TomatoNotificationsInstall;
 use TomatoPHP\TomatoNotifications\Menus\NotificationsMenu;
 use TomatoPHP\TomatoRoles\Services\Permission;
 use TomatoPHP\TomatoRoles\Services\TomatoRoles;
+use TomatoPHP\TomatoSettings\Facades\TomatoSettings;
+use TomatoPHP\TomatoSettings\Services\Contracts\SettingHold;
 
 
 class TomatoNotificationsServiceProvider extends ServiceProvider
@@ -84,6 +86,14 @@ class TomatoNotificationsServiceProvider extends ServiceProvider
             return new \TomatoPHP\TomatoNotifications\Services\SimpleNotify();
         });
 
+        TomatoSettings::register([
+            SettingHold::make()
+                ->label(__('Notifications Settings'))
+                ->icon('bx bx-bell')
+                ->route('admin.settings.notifications.index')
+                ->description(__('Manage you notifications settings, and link FCM cloud messaging.'))
+                ->group(__('Services'))
+        ]);
     }
 
     /**

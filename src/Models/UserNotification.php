@@ -48,13 +48,13 @@ class UserNotification extends Model implements HasMedia
         return $this->hasOne(NotificationsTemplate::class, 'id', 'id');
     }
 
-    public function read()
+    public function read(?int $userId=null)
     {
         $checkExists  = $this->userRead()->where('model_type', $this->model_type)->where('model_id', $this->model_id)->first();
         if(!$checkExists){
             $this->userRead()->create([
                 'model_type' => $this->model_type,
-                'model_id' => $this->model_id,
+                'model_id' => $userId ?: $this->model_id,
                 'read' => true,
                 'open' => true,
             ]);
@@ -62,9 +62,13 @@ class UserNotification extends Model implements HasMedia
 
     }
 
-    public function isRead()
+    public function isRead(?int $userId=null)
     {
-        $checkExists  = $this->userRead()->where('model_type', $this->model_type)->where('model_id', $this->model_id)->first();
+        $checkExists  = $this->userRead()
+            ->where('model_type', $this->model_type)
+            ->where('model_id', $userId?:$this->model_id)
+            ->first();
+
         if($checkExists){
             return $checkExists->read;
         }

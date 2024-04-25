@@ -30,6 +30,7 @@ return [
         ],
         "provider" => [
             "database" => "قواعد البيانات",
+            "sms-misr" => "رسائل هاتفية SMS Misr",
             "email" => "البريد الالكتروني",
             "slack" => "سلاك",
             "discord" => "دسكورد",

@@ -30,6 +30,7 @@ return [
         ],
         "provider" => [
             "database" => "Database",
+            "sms-misr" => "SMS Misr",
             "email" => "Email",
             "slack" => "Slack",
             "discord" => "Discord",
