@@ -3,16 +3,12 @@
 
 use TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsController;
 
-Route::middleware(['web', 'splade', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(array_merge(['splade', 'auth'], config('tomato-admin.route_middlewares')))->prefix('admin')->name('admin.')->group(function () {
     Route::get('/settings/notifications', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsSettingsController::class, 'index'])->name('settings.notifications.index');
     Route::post('/settings/notifications', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsSettingsController::class, 'store'])->name('settings.notifications.store');
 });
 
-Route::middleware([
-    'web',
-    'splade',
-    'verified'
-])->name('admin.')->group(function () {
+Route::middleware(array_merge(['splade', 'auth'], config('tomato-admin.route_middlewares')))->name('admin.')->group(function () {
     Route::get('admin/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
     Route::delete('admin/notifications/clear', [NotificationsController::class, 'clearUser'])->name('notifications.clear');
     Route::post('admin/notifications/read', [NotificationsController::class, 'read'])->name('notifications.read');
@@ -24,7 +20,7 @@ Route::middleware([
 Route::post('token', [NotificationsController::class, 'token'])->name('admin.notifications.token');
 
 
-Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function () {
+Route::middleware(array_merge(['splade', 'auth'], config('tomato-admin.route_middlewares')))->name('admin.')->group(function () {
     Route::get('admin/user-notifications', [\TomatoPHP\TomatoNotifications\Http\Controllers\UserNotificationController::class, 'index'])->name('user-notifications.index');
     Route::get('admin/user-notifications/api', [\TomatoPHP\TomatoNotifications\Http\Controllers\UserNotificationController::class, 'api'])->name('user-notifications.api');
     Route::get('admin/user-notifications/get/{model}', [\TomatoPHP\TomatoNotifications\Http\Controllers\UserNotificationController::class, 'get'])->name('user-notifications.get');
@@ -35,7 +31,7 @@ Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function
     Route::delete('admin/user-notifications/{model}', [\TomatoPHP\TomatoNotifications\Http\Controllers\UserNotificationController::class, 'destroy'])->name('user-notifications.destroy');
 });
 
-Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function () {
+Route::middleware(array_merge(['splade', 'auth'], config('tomato-admin.route_middlewares')))->name('admin.')->group(function () {
     Route::get('admin/notifications-templates', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsTemplateController::class, 'index'])->name('notifications-templates.index');
     Route::get('admin/notifications-templates/api', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsTemplateController::class, 'api'])->name('notifications-templates.api');
     Route::get('admin/notifications-templates/create', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsTemplateController::class, 'create'])->name('notifications-templates.create');
@@ -47,7 +43,7 @@ Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function
     Route::delete('admin/notifications-templates/{model}', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsTemplateController::class, 'destroy'])->name('notifications-templates.destroy');
 });
 
-Route::middleware(['web', 'splade', 'verified'])->name('admin.')->group(function () {
+Route::middleware(array_merge(['splade', 'auth'], config('tomato-admin.route_middlewares')))->name('admin.')->group(function () {
     Route::get('admin/notifications-logs', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'index'])->name('notifications-logs.index');
     Route::post('admin/notifications-logs/clear', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'clear'])->name('notifications-logs.clear');
     Route::get('admin/notifications-logs/api', [\TomatoPHP\TomatoNotifications\Http\Controllers\NotificationsLogController::class, 'api'])->name('notifications-logs.api');
