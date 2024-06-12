@@ -22,6 +22,7 @@ use NotificationChannels\PusherPushNotifications\PusherChannel;
 use NotificationChannels\PusherPushNotifications\PusherMessage;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
+use NotificationChannels\Fcm\Resources\Notification as FcmNotification;
 
 class NotificationService extends Notification
 {
@@ -121,7 +122,7 @@ class NotificationService extends Notification
     }
 
     public function toFcm($notifiable): FcmMessage
-    { 
+    {
         return (
             new FcmMessage(
                 notification: new FcmNotification(
