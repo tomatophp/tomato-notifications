@@ -15,6 +15,7 @@ use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
 use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
 use NotificationChannels\Fcm\Resources\WebpushFcmOptions;
 use NotificationChannels\Fcm\Resources\AndroidNotification;
+use NotificationChannels\Fcm\Resources\Notification as FcmNotification;
 
 class FCMNotificationService extends Notification
 {
