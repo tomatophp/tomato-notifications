@@ -47,75 +47,41 @@ class FCMNotificationService extends Notification
 
     public function toFcm($notifiable): FcmMessage
     {
-        $data = [];
-        $notifcation = \NotificationChannels\Fcm\Resources\Notification::create();
-
-        if($this->message){
-            $data['message'] = $this->message;
-            $notifcation->setBody($this->message);
-        }
-        if($this->title){
-            $data['title'] = $this->title;
-            $notifcation->setTitle($this->title);
-        }
-        if($this->icon){
-            $data['icon'] = $this->icon;
-        }
-        if($this->url){
-            $data['url'] = $this->url;
-        }
-        if($this->image){
-            $data['image'] = $this->image;
-            $notifcation->setImage($this->image);
-        }
-        if($this->type){
-            $data['type'] = $this->type;
-        }
-        if($this->data){
-            $data['data'] = $this->data;
-        }
-
-        $fcm= FcmMessage::create();
-        $fcm->setData($data)->setNotification($notifcation);
-
-        if($this->type === 'web' || $this->type === 'all'){
-            $fcm->setWebpush(
-                \NotificationChannels\Fcm\Resources\WebpushConfig::create()
-                    ->setFcmOptions(
-                        WebpushFcmOptions::create()
-                            ->setAnalyticsLabel('analytics')
-                    )
-            );
-        }
-        if($this->type === 'android' || $this->type === 'all'){
-            $fcm->setAndroid(
-                AndroidConfig::create()
-                    ->setFcmOptions(
-                        AndroidFcmOptions::create()
-                            ->setAnalyticsLabel('analytics')
-                    )
-                    ->setNotification(
-                        AndroidNotification::create()
-                            ->setColor('#0A0A0A')
-                    )
-            );
-        }
-        if($this->type === 'ios' || $this->type === 'all'){
-            $fcm->setApns(
-                ApnsConfig::create()
-                    ->setFcmOptions(
-                        ApnsFcmOptions::create()
-                            ->setAnalyticsLabel('analytics_ios')
-                    )
-                    ->setPayload([
-                        'aps' => [
-                            'mutable-content' => 1,
-                            'sound' => 'default',
+        return (
+        new FcmMessage(
+            notification: new FcmNotification(
+                    title: $this->title,
+                    body: $this->message,
+                    image: $this->image ?? null
+                ),
+                data: [
+                    'title' => $this->title,
+                    'message' => $this->message,
+                    'icon' => $this->icon,
+                    'url' => $this->url,
+                    'image' => $this->image,
+                    'type' => $this->type,
+                    'privacy' => $this->privacy,
+                    'model' => (string)$this->model,
+                    'model_id' => (string)$this->modelId,
+                    'data' =>  $this->data??"" ,
+                ],
+                custom: [
+                    'android' => [
+                        'notification' => [
+                            'color' => '#0A0A0A',
                         ],
-                    ])
-            );
-        }
-
-        return $fcm;
+                        'fcm_options' => [
+                            'analytics_label' => 'analytics',
+                        ],
+                    ],
+                    'apns' => [
+                        'fcm_options' => [
+                            'analytics_label' => 'analytics',
+                        ],
+                    ],
+                ]
+            )
+        );
     }
 }

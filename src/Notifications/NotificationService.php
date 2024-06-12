@@ -121,42 +121,43 @@ class NotificationService extends Notification
     }
 
     public function toFcm($notifiable): FcmMessage
-    {
-        return FcmMessage::create()
-            ->setData([
-                'title' => $this->title,
-                'message' => $this->message,
-                'icon' => $this->icon,
-                'url' => $this->url,
-                'image' => $this->image,
-                'type' => $this->type,
-                'privacy' => $this->privacy,
-                'model' => (string)$this->model,
-                'model_id' => (string)$this->modelId,
-                'data' =>  $this->data??"" ,
-            ])
-            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle($this->title)
-                ->setBody($this->message)
-                ->setImage($this->image))
-            ->setWebpush(
-                \NotificationChannels\Fcm\Resources\WebpushConfig::create()
-                    ->setFcmOptions(WebpushFcmOptions::create()->setAnalyticsLabel('analytics'))
-            )
-            ->setAndroid(
-                AndroidConfig::create()
-                    ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
-                    ->setNotification(AndroidNotification::create()->setColor('#0A0A0A'))
-            )->setApns(
-                ApnsConfig::create()
-                    ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios'))
-                     ->setPayload([
-                        'aps' => [
-                            'mutable-content' => 1,
-                            'sound' => 'default',
+    { 
+        return (
+            new FcmMessage(
+                notification: new FcmNotification(
+                    title: $this->title,
+                    body: $this->message,
+                    image: $this->image ?? null
+                ),
+                data: [
+                    'title' => $this->title,
+                    'message' => $this->message,
+                    'icon' => $this->icon,
+                    'url' => $this->url,
+                    'image' => $this->image,
+                    'type' => $this->type,
+                    'privacy' => $this->privacy,
+                    'model' => (string)$this->model,
+                    'model_id' => (string)$this->modelId,
+                    'data' =>  $this->data??"" ,
+                ],
+                custom: [
+                    'android' => [
+                        'notification' => [
+                            'color' => '#0A0A0A',
                         ],
-                    ])
-            );
+                        'fcm_options' => [
+                            'analytics_label' => 'analytics',
+                        ],
+                    ],
+                    'apns' => [
+                        'fcm_options' => [
+                            'analytics_label' => 'analytics',
+                        ],
+                    ],
+                ]
+            )
+        );
     }
 
     public function toPushNotification($notifiable): PusherMessage
